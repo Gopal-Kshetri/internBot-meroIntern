@@ -1,10 +1,7 @@
 import os
 import random
-from traceback import print_tb
-from unicodedata import name
-from urllib import response
 from discord.ext import commands
-from prettytable import PrettyTable
+import discord
 
 from main import intern_meroIntern
 
@@ -25,14 +22,38 @@ roast   Roasts you with mom joke
 interns  Provides you the available interns```"""
     )
 
-@bot.command(name='interns', help='Provides you the available interns')
-async def interns(ctx):
+# @bot.command(name='interns', help='Provides you the available interns')
+# async def interns(ctx):
+#     titles, authors, dates = intern_meroIntern()
+#     response = PrettyTable(['Title', 'Author', 'Date'])
+#     for (title, author, date) in zip(titles, authors, dates):
+#         # print(title+ '\t' + author + '\t' + date + '\t')
+#         response.add_row([title, author, date])
+#     await ctx.send(response)
+
+
+@bot.command(name = 'interns', help='Embed in Discord')
+async def embed(ctx):
+    embed=discord.Embed(
+        title="Mero Internship", 
+        url="https://merointernship.com/category/internship/", 
+        description="Internships Available", 
+        color=discord.Color.blue()
+        )
+    embed.set_author(
+        name=ctx.author.display_name, 
+        url="https://twitter.com/RealDrewData", 
+        icon_url=ctx.author.avatar_url
+        )
+    embed.set_thumbnail(url="https://merointernship.com/wp-content/uploads/2021/09/coverimages-01-630x230.jpg")
+        
     titles, authors, dates = intern_meroIntern()
-    response = PrettyTable(['Title', 'Author', 'Date'])
     for (title, author, date) in zip(titles, authors, dates):
         # print(title+ '\t' + author + '\t' + date + '\t')
-        response.add_row([title, author, date])
-    await ctx.send(response)
+        embed.add_field(name=f'**{title}**', value=f'> Author: {author} \n> Date: {date}', inline=False)
+
+    await ctx.send(embed=embed)
+
 
 @bot.command(name='gg', help='Responds with a random quote from Brooklyn 99')
 async def nine_nine(ctx):
