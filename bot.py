@@ -1,9 +1,10 @@
 import os
 import random
+from traceback import print_tb
 from unicodedata import name
 from urllib import response
-
 from discord.ext import commands
+from prettytable import PrettyTable
 
 from main import intern_meroIntern
 
@@ -26,7 +27,11 @@ interns  Provides you the available interns```"""
 
 @bot.command(name='interns', help='Provides you the available interns')
 async def interns(ctx):
-    response = intern_meroIntern()
+    titles, authors, dates = intern_meroIntern()
+    response = PrettyTable(['Title', 'Author', 'Date'])
+    for (title, author, date) in zip(titles, authors, dates):
+        # print(title+ '\t' + author + '\t' + date + '\t')
+        response.add_row([title, author, date])
     await ctx.send(response)
 
 @bot.command(name='gg', help='Responds with a random quote from Brooklyn 99')
@@ -84,7 +89,7 @@ async def nine_nine(ctx):
 async def roast(ctx):
     mom_jokes = [
         'Mothers of teens understand why some animals eat their young.',
-        'Mom, what\'s it like to have the greatest daughter in the world?" \n "I don\'t know, ask your grandma!',
+        '"Mom, what\'s it like to have the greatest daughter in the world?" \n "I don\'t know, ask your grandma!"',
         'Kid: Mom, stop. You aren\'t funny. \n Mom: I made you.',
         'Why did the baby strawberry cry? \n Because his mom was in a jam!',
         'What do you call a small mom? \n Minimum.',

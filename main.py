@@ -5,7 +5,9 @@ def intern_meroIntern():
     URL = "https://merointernship.com/category/internship/"
     page = requests.get(URL)
 
-    return_val = []
+    titles = []
+    authors = []
+    dates = []
 
     soup = BeautifulSoup(page.content, "html.parser")
     results = soup.find(id="content_box")
@@ -14,10 +16,11 @@ def intern_meroIntern():
 
     for job_element in job_elements:
         title_element = job_element.find("h2", class_="title")
+        titles.append(title_element.text.strip())
         author_element = job_element.find("span", class_="theauthor")
+        authors.append(author_element.text.strip())
         date_element = job_element.find("span", class_="thetime date updated")
-
-        return_val = title_element + '\n' + author_element + '\n' + date_element + '\n'
+        dates.append(date_element.text.strip())
 
         # print(job_element, end="\n"*2)
 
@@ -25,4 +28,5 @@ def intern_meroIntern():
         # print(author_element.text.strip(), end="\n")
         # print(date_element.text.strip(), end="\n"*2)
 
-        return return_val
+    
+    return titles, authors, dates
