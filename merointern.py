@@ -30,3 +30,5 @@ def intern_meroIntern():
 
     
     return titles, authors, dates
+
+intern_meroIntern()

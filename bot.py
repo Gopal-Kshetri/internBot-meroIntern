@@ -1,9 +1,9 @@
-import os
-import random
 from discord.ext import commands
 import discord
 
-from main import intern_meroIntern
+from merointern import intern_meroIntern
+from friends import friends_quote
+from roast import roast_me
 
 TOKEN='OTc3NTk3NDUzODgyNzY5NDc5.G5hDjA.4oDtOJjBIIzdN4ap9zbBcmOcjE8yab4R-Ej8Wc'
 
@@ -27,7 +27,7 @@ async def help(ctx):
         )
     embed.set_thumbnail(url="https://merointernship.com/wp-content/uploads/2021/09/coverimages-01-630x230.jpg")
 
-    bot_commands = ['help', 'gg', 'roast', 'interns']
+    bot_commands = ['help', 'quote', 'roast', 'interns']
     descriptions = ['Displays commands for the Discord bot', 'Responds with a random quote from Friends', 'Roasts you with Yo mama joke', 'Provides you the available interns']
     for (bot_command,description) in zip(bot_commands, descriptions):
         embed.add_field(name=f'**{bot_command}**', value=f'> {description}', inline=False)
@@ -64,8 +64,8 @@ async def interns(ctx):
     await ctx.send(embed=embed)
 
 
-@bot.command(name='gg', help='Responds with a random quote from Brooklyn 99')
-async def nine_nine(ctx):
+@bot.command(name='quote', help='Responds with a random quote from Brooklyn 99')
+async def quote(ctx):
     
     brooklyn_99_quotes = [
         'I\'m the human form of the :100: emoji.',
@@ -74,73 +74,16 @@ async def nine_nine(ctx):
             'Cool. Cool cool cool cool cool cool,   '
             'no doubt no doubt no doubt. '
         ),
-
     ]
 
-    friends_quotes = [
-        'Well, maybe I don\'t need your money. Wait, wait, I said maybe!',
-        'We were on a break!',
-        'Joey doesn\'t share food!',
-        'See? He\'s her lobster.',
-        'Hi, I\'m Chandler. I make jokes when I\'m uncomfortable.',
-        'I wish I could, but I don\'t want to.',
-        'Seven!',
-        'Pivot!',
-        'Could I be wearing any more clothes?',
-        'It tastes like feet!',
-        (
-            'What\'s not to like?',
-            'Custard: good.',
-            'Jam: good',
-            'Meat:GOOD',
-        ),
-        'This is all a moo point.',
-        'Your little Harmonica is hammered.',
-        'Can\'t hold her own head up, but yeah - jumped.',
-        'And I have to live with a boy!',
-        'How you doin\'?',
-        'Oh. My. God.',
-        'I don\'t even have a \'pla\'',
-        'Okay, you have to stop the Q-Tip when there\'s resistance.',
-        'Oh, come on, Will, just take off the shirt and tell us.',
-        'Nestle Toulouse.',
-        'They don\'t know that we know they know we know.',
-        'You can\'t just give up. Is that what a dinosaur would do?', 
-        'Come on, Ross, you\'re paleontologist. Dig a little deeper.',
-        'I got off the plane.',
-
-    ]   
-
-    response = random.choice(friends_quotes)
+    response = friends_quote()
     await ctx.send(response)
 
 
 @bot.command(name='roast', help='Roasts you with mom joke')
 async def roast(ctx):
-    mom_jokes = [
-        'Mothers of teens understand why some animals eat their young.',
-        '"Mom, what\'s it like to have the greatest daughter in the world?" \n "I don\'t know, ask your grandma!"',
-        'Kid: Mom, stop. You aren\'t funny. \n Mom: I made you.',
-        'Why did the baby strawberry cry? \n Because his mom was in a jam!',
-        'What do you call a small mom? \n Minimum.',
-        'Yo Mama\'s like a library, open to the public.',
-        'Yo Mama\'s like mustard, she spreads easy.',
-        'If Yo Mama and Yo Daddy got a divorce, they\'d still be brother and sister.',
-        'Yo Mama\'s so fat her butt cheeks have different area codes.',
-        'Yo mama\'s so stupid, she put lipstick on her forehead to make up her mind.',
-        'Yo mama\'s so stupid, she took a ruler to bed to see how long she slept.',
-        'Yo mama\'s so ugly, her birth certificate is an apology letter.',
-        'Yo mama\'s so ugly, she threw a boomerang and it refused to come back.',
-        'Yo mama\'s cooking so nasty, she flys got together and fixed the hole in the window screen.',
-        'Yo mama\'s so nasty, they used to call them jumpolines \'til yo mama bounced on one.',
-        'Yo mama\'s so lazy, she stuck her nose out the window and let the wind blow it.',
-        'Yo mama\'s so dumb, she went to the eye doctor to get an iPhone.',
-        'Yo mama\'s so literal, she stared at a cup of orange juice for 12 hours because it said, “concentrate.”',
-    ]
-
-    response = random.choice(mom_jokes)
+    response = roast_me()
     await ctx.send(response)
-
 
 
 bot.run(TOKEN)

@@ -1,6 +1,3 @@
-from pydoc import cli
-from urllib import response
-from click import command
 import discord
 import random
 
