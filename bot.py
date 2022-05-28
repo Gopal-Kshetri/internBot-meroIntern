@@ -1,11 +1,15 @@
 from discord.ext import commands
 import discord
+import os
+from dotenv import load_dotenv
+
 
 from merointern import intern_meroIntern
 from friends import friends_quote
 from roast import roast_me
 
-TOKEN='OTc3NTk3NDUzODgyNzY5NDc5.G5hDjA.4oDtOJjBIIzdN4ap9zbBcmOcjE8yab4R-Ej8Wc'
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='!', help_command=None)
 
